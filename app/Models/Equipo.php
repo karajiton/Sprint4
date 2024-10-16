@@ -10,6 +10,13 @@ class Equipo extends Model
 
     use HasFactory;
 
+    protected $fillable = [
+        'nombre',              // Campo nombre
+        'numero_de_jugadores',    // Campo número de jugadores
+        'fecha_fundacion',     // Campo fecha de fundación
+        
+    ];
+
     
 public function partidosLocal()
 {

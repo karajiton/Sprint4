@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('equipos', function (Blueprint $table) {
             $table->id();
-            $table->string('ruta_imagen');
+           
             $table->string('nombre');
             $table->integer('numero_de_jugadores');
-            $table->year('año_de_creacion');
+            $table->date('fecha_fundacion');
             $table->timestamps();
         });
     }

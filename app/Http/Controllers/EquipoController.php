@@ -24,17 +24,25 @@ class EquipoController extends Controller
     // 3. Guardar un equipo en la base de datos (CREATE)
     public function store(Request $request)
     {
-        // Validar el formulario
+        // Validación de los datos recibidos
         $request->validate([
             'nombre' => 'required|string|max:255',
+            'numero_de_jugadores' => 'required|integer',
+            'fecha_fundacion' => 'required|date',
+            
         ]);
+        
 
-        // Crear un nuevo equipo
+        // Guardar el equipo
         Equipo::create([
             'nombre' => $request->nombre,
+            'numero_de_jugadores' => $request->numero_de_jugadores, 
+            'fecha_fundacion' => $request->fecha_fundacion,
+            
         ]);
+    
 
-        return redirect()->route('equipos.readTeams')->with('success', 'Equipo creado correctamente');
+        return redirect()->route('equipos.index')->with('success', 'Equipo creado correctamente');
     }
 
     // 4. Mostrar un equipo específico (READ)
@@ -65,7 +73,7 @@ class EquipoController extends Controller
             'nombre' => $request->nombre,
         ]);
 
-        return redirect()->route('equipos.readTeams')->with('success', 'Equipo actualizado correctamente');
+        return redirect()->route('equipos.index')->with('success', 'Equipo actualizado correctamente');
     }
 
     // 7. Eliminar un equipo de la base de datos (DELETE)
@@ -74,6 +82,6 @@ class EquipoController extends Controller
         $equipo = Equipo::findOrFail($id);
         $equipo->delete();
 
-        return redirect()->route('equipos.readTeams')->with('success', 'Equipo eliminado correctamente');
+        return redirect()->route('equipos.index')->with('success', 'Equipo eliminado correctamente');
     }
 }
