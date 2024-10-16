@@ -13,14 +13,14 @@ class PartidoController extends Controller
     public function index()
     {
         $partidos = Partido::with('equipoLocal', 'equipoVisitante')->get(); // Cargar equipos relacionados
-        return view('partidos.index', compact('partidos')); // Enviar a una vista
+        return view('partidos.readMatch', compact('partidos')); // Enviar a una vista
     }
 
     // 2. Mostrar formulario de creación (CREATE)
     public function create()
     {
         $equipos = Equipo::all(); // Obtener los equipos para el formulario
-        return view('partidos.create', compact('equipos'));
+        return view('partidos.createMatch', compact('equipos'));
     }
 
     // 3. Guardar un partido en la base de datos (CREATE)
@@ -40,7 +40,7 @@ class PartidoController extends Controller
             'fecha' => $request->fecha,
         ]);
 
-        return redirect()->route('partidos.index')->with('success', 'Partido creado correctamente');
+        return redirect()->route('partidos.readMatch')->with('success', 'Partido creado correctamente');
     }
 
     // 4. Mostrar un partido específico (READ)
@@ -55,7 +55,7 @@ class PartidoController extends Controller
     {
         $partido = Partido::findOrFail($id);
         $equipos = Equipo::all();
-        return view('partidos.edit', compact('partido', 'equipos'));
+        return view('partidos.updateMatch', compact('partido', 'equipos'));
     }
 
     // 6. Actualizar un partido en la base de datos (UPDATE)
@@ -76,7 +76,7 @@ class PartidoController extends Controller
             'fecha' => $request->fecha,
         ]);
 
-        return redirect()->route('partidos.index')->with('success', 'Partido actualizado correctamente');
+        return redirect()->route('partidos.readMatch')->with('success', 'Partido actualizado correctamente');
     }
 
     // 7. Eliminar un partido de la base de datos (DELETE)
@@ -85,6 +85,6 @@ class PartidoController extends Controller
         $partido = Partido::findOrFail($id);
         $partido->delete();
 
-        return redirect()->route('partidos.index')->with('success', 'Partido eliminado correctamente');
+        return redirect()->route('partidos.Match')->with('success', 'Partido eliminado correctamente');
     }
 }
