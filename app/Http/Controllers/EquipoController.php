@@ -12,13 +12,13 @@ class EquipoController extends Controller
     public function index()
     {
         $equipos = Equipo::all(); // Obtener todos los equipos
-        return view('equipos.index', compact('equipos')); // Enviar a una vista
+        return view('equipos.readTeams', compact('equipos')); // Enviar a una vista
     }
 
     // 2. Mostrar formulario de creación (CREATE)
     public function create()
     {
-        return view('equipos.create'); // Retorna un formulario de creación
+        return view('equipos.createTeam'); // Retorna un formulario de creación
     }
 
     // 3. Guardar un equipo en la base de datos (CREATE)
@@ -34,7 +34,7 @@ class EquipoController extends Controller
             'nombre' => $request->nombre,
         ]);
 
-        return redirect()->route('equipos.index')->with('success', 'Equipo creado correctamente');
+        return redirect()->route('equipos.readTeams')->with('success', 'Equipo creado correctamente');
     }
 
     // 4. Mostrar un equipo específico (READ)
@@ -48,7 +48,7 @@ class EquipoController extends Controller
     public function edit($id)
     {
         $equipo = Equipo::findOrFail($id);
-        return view('equipos.edit', compact('equipo'));
+        return view('equipos.updateTeam', compact('equipo'));
     }
 
     // 6. Actualizar un equipo en la base de datos (UPDATE)
@@ -65,7 +65,7 @@ class EquipoController extends Controller
             'nombre' => $request->nombre,
         ]);
 
-        return redirect()->route('equipos.index')->with('success', 'Equipo actualizado correctamente');
+        return redirect()->route('equipos.readTeams')->with('success', 'Equipo actualizado correctamente');
     }
 
     // 7. Eliminar un equipo de la base de datos (DELETE)
@@ -74,6 +74,6 @@ class EquipoController extends Controller
         $equipo = Equipo::findOrFail($id);
         $equipo->delete();
 
-        return redirect()->route('equipos.index')->with('success', 'Equipo eliminado correctamente');
+        return redirect()->route('equipos.readTeams')->with('success', 'Equipo eliminado correctamente');
     }
 }
