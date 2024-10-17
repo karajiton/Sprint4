@@ -10,6 +10,12 @@ class Partido extends Model
 
     use HasFactory;
 
+    protected $fillable = [
+        'equipo_local_id',
+        'equipo_visitante_id',
+        'fecha',
+    ];
+
     // app/Models/Partido.php
 public function equipoLocal()
 {
