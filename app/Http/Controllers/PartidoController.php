@@ -26,21 +26,22 @@ class PartidoController extends Controller
     // 3. Guardar un partido en la base de datos (CREATE)
     public function store(Request $request)
     {
+        
         // Validar el formulario
         $request->validate([
             'equipo_local_id' => 'required|exists:equipos,id',
             'equipo_visitante_id' => 'required|exists:equipos,id',
             'fecha' => 'required|date',
         ]);
-
+        
         // Crear un nuevo partido
         Partido::create([
             'equipo_local_id' => $request->equipo_local_id,
             'equipo_visitante_id' => $request->equipo_visitante_id,
             'fecha' => $request->fecha,
         ]);
-
-        return redirect()->route('partidos.readMatch')->with('success', 'Partido creado correctamente');
+        
+        return redirect()->route('partidos.index')->with('success', 'Partido creado correctamente');
     }
 
     // 4. Mostrar un partido específico (READ)
@@ -76,7 +77,7 @@ class PartidoController extends Controller
             'fecha' => $request->fecha,
         ]);
 
-        return redirect()->route('partidos.readMatch')->with('success', 'Partido actualizado correctamente');
+        return redirect()->route('partidos.index')->with('success', 'Partido actualizado correctamente');
     }
 
     // 7. Eliminar un partido de la base de datos (DELETE)
@@ -85,6 +86,6 @@ class PartidoController extends Controller
         $partido = Partido::findOrFail($id);
         $partido->delete();
 
-        return redirect()->route('partidos.Match')->with('success', 'Partido eliminado correctamente');
+        return redirect()->route('partidos.index')->with('success', 'Partido eliminado correctamente');
     }
 }
