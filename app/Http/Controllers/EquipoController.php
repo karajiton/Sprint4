@@ -65,12 +65,15 @@ class EquipoController extends Controller
         // Validar el formulario
         $request->validate([
             'nombre' => 'required|string|max:255',
+            
         ]);
 
         // Buscar el equipo y actualizarlo
         $equipo = Equipo::findOrFail($id);
         $equipo->update([
             'nombre' => $request->nombre,
+            'numero_de_jugadores' => $request->numero_de_jugadores, 
+            'fecha_fundacion' => $request->fecha_fundacion,
         ]);
 
         return redirect()->route('equipos.index')->with('success', 'Equipo actualizado correctamente');
