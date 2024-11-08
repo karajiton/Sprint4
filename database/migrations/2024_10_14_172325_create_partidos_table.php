@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('equipo_local_id'); 
             $table->unsignedBigInteger('equipo_visitante_id');
+            $table->string('resultado');
             $table->date('fecha');
             $table->timestamps();
 
