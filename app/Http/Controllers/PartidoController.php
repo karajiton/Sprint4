@@ -31,7 +31,7 @@ class PartidoController extends Controller
         $request->validate([
             'equipo_local_id' => 'required|exists:equipos,id',
             'equipo_visitante_id' => 'required|exists:equipos,id',
-            'resultado' => ['required','string','max:255',
+            'resultado' => ['nullable','string','max:255',
             function ($attribute, $value, $fail) {
                 if (!$this->validarResultado($value)) {
                     $fail('El resultado no puede tener puntajes iguales para ambos equipos.');
@@ -41,11 +41,12 @@ class PartidoController extends Controller
             'fecha' => 'required|date',
         ]);
         
+        $resultado = $request->filled('resultado') ? $request->resultado : '0-0';
         // Crear un nuevo partido
         Partido::create([
             'equipo_local_id' => $request->equipo_local_id,
             'equipo_visitante_id' => $request->equipo_visitante_id,
-            'resultado' => $request->resultado,
+            'resultado' => $resultado,
             'fecha' => $request->fecha,
         ]);
         
@@ -74,7 +75,7 @@ class PartidoController extends Controller
         $request->validate([
             'equipo_local_id' => 'required|exists:equipos,id',
             'equipo_visitante_id' => 'required|exists:equipos,id',
-            'resultado' => ['required','string','max:255',
+            'resultado' => ['nullable','string','max:255',
             function ($attribute, $value, $fail) {
                 if (!$this->validarResultado($value)) {
                     $fail('El resultado no puede tener puntajes iguales para ambos equipos.');
@@ -84,13 +85,14 @@ class PartidoController extends Controller
 
             'fecha' => 'required|date',
         ]);
+        $resultado = $request->filled('resultado') ? $request->resultado : '0-0';
 
         // Buscar el partido y actualizarlo
         $partido = Partido::findOrFail($id);
         $partido->update([
             'equipo_local_id' => $request->equipo_local_id,
             'equipo_visitante_id' => $request->equipo_visitante_id,
-            'resultado' => $request->resultado,
+            'resultado' => $resultado,
             'fecha' => $request->fecha,
         ]);
 

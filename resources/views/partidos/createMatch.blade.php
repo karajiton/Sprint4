@@ -1,6 +1,15 @@
 @extends('plantilla')
 
 @section('content')
+<!-- Mostrar mensajes de error -->
+@if ($errors->any())
+    
+    <ul class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+@endif
 
 <form class="max-w-lg mx-auto mt-8 mb-6" action="{{ route('partidos.store') }}" method="POST">
     @csrf <!-- Token CSRF obligatorio para formularios POST en Laravel -->
@@ -25,6 +34,14 @@
             @endforeach
         </select>
         <label for="equipo_visitante_id" class="peer-focus:font-medium absolute text-sm text-white dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-400 peer-focus:dark:text-blue-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Equipo visitante</label>
+    </div>
+    <!-- Resultado del partido -->
+    <div class="mb-5">
+        <label for="resultado" class="block mb-2 text-sm text-white text-left">Resultado (Formato: 0-0, Máx: 15)</label>
+        <input type="text" id="resultado" name="resultado" pattern="^(1[0-5]|[0-9])-(1[0-5]|[0-9])$" 
+               title="Debe estar en formato '0-0' y cada número debe ser 15 o menos" 
+               placeholder="0-0" 
+               class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-400 focus:border-blue-400 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-400 dark:focus:border-blue-400" >
     </div>
     
 
